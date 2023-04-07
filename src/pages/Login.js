@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import loginImage from '../assets/login.svg';
 import { googleLogin, loginUser } from '../features/auth/authSlice';
+import { toast } from 'react-hot-toast';
 const Login = () => {
-  const { isLoading, email } = useSelector((state) => state.auth);
+  const { isLoading, email, isError,error } = useSelector((state) => state.auth);
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +22,14 @@ const Login = () => {
   useEffect(() => {
     if (!isLoading && email) navigate('/');
   }, [isLoading]);
+  
+  useEffect(() => {
+    if (isError) {
+      toast.error(error)
+    }
+  }, [isError, error]);
+
+
   return (
     <div className="flex h-screen items-center">
       <div className="w-1/2">
@@ -48,6 +57,7 @@ const Login = () => {
                 />
               </div>
               <div className="relative !mt-8">
+                
                 <button
                   type="submit"
                   className="font-bold text-white py-3 rounded-full bg-primary w-full"

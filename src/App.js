@@ -1,12 +1,14 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { setUser } from "./features/auth/authSlice";
 import auth from "./firebase/firebase.config";
 import routes from "./routes/routes";
+import { Toaster } from "react-hot-toast";
 
 function App() {
+  const { isLoading } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, (user ) => {
@@ -18,6 +20,7 @@ function App() {
   }, [])
   return (
     <>
+      <Toaster />
       <RouterProvider router={routes} />
     </>
   );
