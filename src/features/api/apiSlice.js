@@ -5,7 +5,8 @@ const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
       baseUrl:process.env.REACT_APP_DEV_URL,
-    }),
+  }),
+  tagTypes: ['Jobs'],
     endpoints: (builder) => ({
       
   })
